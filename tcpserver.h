@@ -73,7 +73,7 @@ struct s_server {
 typedef struct s_server server;
 
  int main(void);
- private void handler(connection*);
+ private void handler_(connection*);
 private init void start(void); 
 public server *tcpserver(int16,callback);
 private bool okfunction(void);

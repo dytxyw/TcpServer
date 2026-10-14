@@ -1,4 +1,4 @@
-flags := -O2 -Wall -I.
+flags := -O2 -Wall -I. -Wno-attributes
 
 all: tcpserver
 

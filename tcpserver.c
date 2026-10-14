@@ -85,7 +85,7 @@ private char *errfunction() {
     else if (globalsrv -> status != Errstatus)
         return "no error";
     else 
-        return $c global -> errmsg;
+        return $c globalsrv -> errmsg;
 }
 
 private int listenfunction() {
