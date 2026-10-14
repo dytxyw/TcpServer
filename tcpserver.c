@@ -63,7 +63,7 @@ public server *tcpserver(int16 port, callback cb){
     srv -> status = Okstatus;
     srv -> ok = &okfunction;
     srv -> err = &errfunction;
-    srv -> listen = &listen;
+    srv -> listen = &listenfunction;
     srv -> cb = cb;
     globalsrv = srv;
 

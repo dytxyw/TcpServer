@@ -54,8 +54,8 @@ struct s_connection {
     int32 fd;
     int8 host[16];
     int16 port;
-    int (*recv)(char*, int);
-    int (*send)(char*, int);
+    int *(*recv)(char*, int);
+    int *(*send)(char*, int);
 };
 typedef struct s_connection connection;
 typedef void (*callback)(connection*);
@@ -65,7 +65,7 @@ struct s_server {
     int8 status:1;
     int16 port;
     bool (*ok)(void);
-    char (*err)(void);
+    char *(*err)(void);
     int (*listen)(void);
     callback cb;
     int8 errmsg[];
