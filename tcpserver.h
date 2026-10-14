@@ -39,8 +39,11 @@ typedef unsigned long long int int64;
     _srv = (server *)malloc($i _sz); \
     assert(_srv); \
     memset($c _srv, 0, $i _sz); \
+    _srv -> ok = &okfunction; \
+    _srv -> err = &errfunction; \
     _srv -> status = Errstatus; \
     memcpy($c _srv -> errmsg, $c (x), $i _len); \
+    globalsrv = _srv; \
     \
     return _srv; \
 } while(false)

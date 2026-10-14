@@ -7,6 +7,8 @@ public connection *globalconn;
 private void handler_(connection *conn) {
     char buf[128];
 
+    memset(buf, 0, 128);
+
     conn -> send("Welcome to Server\n", 19);  
     conn -> recv(buf, 127);
     
@@ -101,7 +103,7 @@ private int listenfunction() {
         return -1;
     else if (globalsrv -> status == Errstatus) 
         return -1;
-    if (!fork()) {
+    if (fork()) {
         exit(0);
     }
 
@@ -130,7 +132,8 @@ private int listenfunction() {
         conn -> port = $2 htons(sock.sin_port);
         conn -> send = &sendfunction;
         conn -> recv = &recvfunction;
-        if (!fork()) {
+        if (fork()) {
+            close($i s);
             if (conn) 
                 free(conn);
             continue;
@@ -138,6 +141,7 @@ private int listenfunction() {
 
         globalconn = conn;
         globalsrv -> cb(conn);
+        close($i s);
         exit(0);
     }
     exit(0);
