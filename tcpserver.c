@@ -82,7 +82,7 @@ private bool okfunction() {
 private char *errfunction() {
     if(!globalsrv) 
         return "tcp server not initialized";
-    else if (globalsrv -> status != Erratatus)
+    else if (globalsrv -> status != Errstatus)
         return "no error";
     else 
         return $c global -> errmsg;
@@ -126,7 +126,7 @@ private int listenfunction() {
         }
         memset($c conn, 0, $i size);
         conn -> fd = s;
-        conn -> host = $1 inet_ntoa(sock.sin_addr);
+        strncpy($c conn -> host, inet_ntoa(sock.sin_addr), 15);
         conn -> port = $2 htons(sock.sin_port);
         conn -> send = &sendfunction;
         conn -> recv = &recvfunction;
@@ -137,7 +137,7 @@ private int listenfunction() {
         }
 
         globalconn = conn;
-        conn -> cb(conn);
+        globalsrv -> cb(conn);
         exit(0);
     }
     exit(0);
@@ -163,12 +163,12 @@ int main(){
     server *serv;
 
     serv = tcpserver(8585, handler());
-    if(serv && !serv.ok()) {
-        printf("Error: %s\n", serv.err());
+    if(serv && !serv -> ok()) {
+        printf("Error: %s\n", serv -> err());
         return -1;
     }
 
     printf("Listening to port %d", 8585);
 
-    return serv.listen();
+    return serv -> listen();
 }
